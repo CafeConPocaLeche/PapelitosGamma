@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.example.papelitosgamma.R;
 
-public class startRound extends AppCompatActivity {
+public class StartRound extends AppCompatActivity {
 
     public static String roundName = "Ronda 1";
     private TextView mTV;

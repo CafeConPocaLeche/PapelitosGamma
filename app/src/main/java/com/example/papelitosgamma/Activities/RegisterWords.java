@@ -76,22 +76,25 @@ public class RegisterWords extends AppCompatActivity {
     public void registerWord(View view) {
         if (GameData.WORDS.size() < GameData.WORD_AMOUNT) {
             int chosenAmount = chosenWords.get(index);
-            if (chosenAmount < 3) {
-                if (chosenAmount == 2) {
+            if (chosenAmount < GameData.WORDS_PER_PLAYER) {
+                if (chosenAmount == GameData.WORDS_PER_PLAYER - 1) {
                     playerSelector.getChildAt(index);
                 }
                 GameData.WORDS.add(wordCollector.getText().toString());
                 wordCollector.getText().clear();
                 chosenWords.set(index, chosenAmount + 1);
-                Snackbar.make(this, playerSelector, GameData.WORDS.size() + "/" + GameData.WORD_AMOUNT, Snackbar.LENGTH_SHORT).show();
-                if(GameData.WORDS.size() == GameData.WORD_AMOUNT - 1)wordRegister.setText("PLAY");
+               // Snackbar.make(this, playerSelector, GameData.WORDS.size() + "/" + GameData.WORD_AMOUNT, Snackbar.LENGTH_SHORT).show();
+                if(GameData.WORDS.size() == GameData.WORD_AMOUNT){
+                    wordRegister.setText("PLAY");
+                    wordRegister.setBackgroundColor(Color.MAGENTA);
+                }
 
             } else
                 Snackbar.make(this, playerSelector, "Palabras agotadas", Snackbar.LENGTH_SHORT).show();
 
         }
         else {
-            Intent intent = new Intent(view.getContext(), NextRound.class);
+            Intent intent = new Intent(view.getContext(), StartRound.class);
             startActivity(intent);
         }
 
