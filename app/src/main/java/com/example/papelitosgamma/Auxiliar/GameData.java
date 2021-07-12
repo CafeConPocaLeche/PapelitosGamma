@@ -29,5 +29,6 @@ public class GameData { //Datos y estructuras estatic o constantes de la partida
 
     public static ArrayList<String> WORDS_ATAJO = new ArrayList<>(Arrays.asList("pergamino", "botafumeiro","contraproducente", "basilisco", "cloaca", "tendinitis", "Hertfelder", "tenedor", "locutorio"));
 
+    public static TurnManager TURN_MANAGER = new TurnManager();
 
 }
