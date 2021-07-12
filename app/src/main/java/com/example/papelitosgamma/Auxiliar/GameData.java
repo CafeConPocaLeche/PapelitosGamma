@@ -25,5 +25,9 @@ public class GameData { //Datos y estructuras estatic o constantes de la partida
 
     public static ArrayList<String> WORDS = new ArrayList<>(PLAYER_AMOUNT * WORDS_PER_PLAYER);
 
+    public static boolean ATAJO = true;
+
+    public static ArrayList<String> WORDS_ATAJO = new ArrayList<>(Arrays.asList("pergamino", "botafumeiro","contraproducente", "basilisco", "cloaca", "tendinitis", "Hertfelder", "tenedor", "locutorio"));
+
 
 }

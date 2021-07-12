@@ -74,30 +74,36 @@ public class RegisterWords extends AppCompatActivity {
     }
 
     public void registerWord(View view) {
-        if (GameData.WORDS.size() < GameData.WORD_AMOUNT) {
-            int chosenAmount = chosenWords.get(index);
-            if (chosenAmount < GameData.WORDS_PER_PLAYER) {
-                if (chosenAmount == GameData.WORDS_PER_PLAYER - 1) {
-                    playerSelector.getChildAt(index);
-                }
-                GameData.WORDS.add(wordCollector.getText().toString());
-                wordCollector.getText().clear();
-                chosenWords.set(index, chosenAmount + 1);
-               // Snackbar.make(this, playerSelector, GameData.WORDS.size() + "/" + GameData.WORD_AMOUNT, Snackbar.LENGTH_SHORT).show();
-                if(GameData.WORDS.size() == GameData.WORD_AMOUNT){
-                    wordRegister.setText("PLAY");
-                    wordRegister.setBackgroundColor(Color.MAGENTA);
-                }
 
-            } else
-                Snackbar.make(this, playerSelector, "Palabras agotadas", Snackbar.LENGTH_SHORT).show();
-
-        }
-        else {
+        if (GameData.ATAJO) {
+            GameData.WORDS = GameData.WORDS_ATAJO;
             Intent intent = new Intent(view.getContext(), StartRound.class);
             startActivity(intent);
+        } else {
+            if (GameData.WORDS.size() < GameData.WORD_AMOUNT) {
+                int chosenAmount = chosenWords.get(index);
+                if (chosenAmount < GameData.WORDS_PER_PLAYER) {
+                    if (chosenAmount == GameData.WORDS_PER_PLAYER - 1) {
+                        playerSelector.getChildAt(index);
+                    }
+                    GameData.WORDS.add(wordCollector.getText().toString());
+                    wordCollector.getText().clear();
+                    chosenWords.set(index, chosenAmount + 1);
+                    // Snackbar.make(this, playerSelector, GameData.WORDS.size() + "/" + GameData.WORD_AMOUNT, Snackbar.LENGTH_SHORT).show();
+                    if (GameData.WORDS.size() == GameData.WORD_AMOUNT) {
+                        wordRegister.setText("PLAY");
+                        wordRegister.setBackgroundColor(Color.MAGENTA);
+                    }
+
+                } else
+                    Snackbar.make(this, playerSelector, "Palabras agotadas", Snackbar.LENGTH_SHORT).show();
+
+            } else {
+                Intent intent = new Intent(view.getContext(), StartRound.class);
+                startActivity(intent);
+            }
+
+
         }
-
-
     }
     }
