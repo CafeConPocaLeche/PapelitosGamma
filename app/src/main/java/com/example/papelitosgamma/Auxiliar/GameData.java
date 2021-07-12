@@ -29,6 +29,9 @@ public class GameData { //Datos y estructuras estatic o constantes de la partida
 
     public static ArrayList<String> WORDS_ATAJO = new ArrayList<>(Arrays.asList("pergamino", "botafumeiro","contraproducente", "basilisco", "cloaca", "tendinitis", "Hertfelder", "tenedor", "locutorio"));
 
-    public static TurnManager TURN_MANAGER = new TurnManager();
+    public static GameManager GAME_MANAGER = new GameManager();
 
+    public static ArrayList<Integer> SCORES = new ArrayList<>(TEAM_AMOUNT);
+
+    public static int ROUND_AMOUNT = 3;
 }
