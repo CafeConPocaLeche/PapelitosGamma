@@ -1,4 +1,4 @@
-package com.example.papelazos.Activities;
+package com.example.papelitosgamma.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.papelazos.Auxiliar.GameData;
-import com.example.papelazos.R;
+import com.example.papelitosgamma.Auxiliar.*;
+import com.example.papelitosgamma.R;
 
 import java.util.Collections;
 
@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void Start(View view) { //Desordenar jugadores y pasar a la pantalla siguiente para mostrarlos
-        Collections.shuffle(GameData.PLAYERS);
-        Intent intent = new Intent(view.getContext(), TeamsView.class);
+        Collections.shuffle(com.example.papelitosgamma.Auxiliar.GameData.PLAYERS);
+        Intent intent = new Intent(view.getContext(), com.example.papelitosgamma.Activities.TeamsView.class);
         startActivity(intent);
     }
 }

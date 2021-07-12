@@ -1,4 +1,4 @@
-package com.example.papelazos.Activities;
+package com.example.papelitosgamma.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,8 +18,8 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import com.example.papelazos.Auxiliar.GameData;
-import com.example.papelazos.R;
+import com.example.papelitosgamma.Auxiliar.GameData;
+import com.example.papelitosgamma.R;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -74,17 +74,27 @@ public class RegisterWords extends AppCompatActivity {
     }
 
     public void registerWord(View view) {
-        int chosenAmount = chosenWords.get(index);
-        if (chosenAmount < 3) {
-            if (chosenAmount == 2) {
-                playerSelector.getChildAt(index);
-            }
-            GameData.WORDS.add(wordCollector.getText().toString());
-            chosenWords.set(index, chosenAmount + 1);
+        if (GameData.WORDS.size() < GameData.WORD_AMOUNT) {
+            int chosenAmount = chosenWords.get(index);
+            if (chosenAmount < 3) {
+                if (chosenAmount == 2) {
+                    playerSelector.getChildAt(index);
+                }
+                GameData.WORDS.add(wordCollector.getText().toString());
+                wordCollector.getText().clear();
+                chosenWords.set(index, chosenAmount + 1);
+                Snackbar.make(this, playerSelector, GameData.WORDS.size() + "/" + GameData.WORD_AMOUNT, Snackbar.LENGTH_SHORT).show();
+                if(GameData.WORDS.size() == GameData.WORD_AMOUNT - 1)wordRegister.setText("PLAY");
 
-        } else Snackbar.make(this, playerSelector, "Palabras agotadas", Snackbar.LENGTH_SHORT).show();
+            } else
+                Snackbar.make(this, playerSelector, "Palabras agotadas", Snackbar.LENGTH_SHORT).show();
 
+        }
+        else {
+            Intent intent = new Intent(view.getContext(), NextRound.class);
+            startActivity(intent);
         }
 
 
+    }
     }

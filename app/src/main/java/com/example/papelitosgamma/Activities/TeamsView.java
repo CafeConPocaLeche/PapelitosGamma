@@ -1,4 +1,4 @@
-package com.example.papelazos.Activities;
+package com.example.papelitosgamma.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.papelazos.Auxiliar.GameData;
-import com.example.papelazos.R;
+import com.example.papelitosgamma.Auxiliar.*;
+import com.example.papelitosgamma.R;
 
 public class TeamsView extends AppCompatActivity {
 
@@ -23,23 +23,23 @@ public class TeamsView extends AppCompatActivity {
 
         teamsListview = findViewById(R.id.teamsview_lv);
         fillTeamNames();
-        teamsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, GameData.TEAMS);
+        teamsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, com.example.papelitosgamma.Auxiliar.GameData.TEAMS);
         teamsListview.setAdapter(teamsAdapter);
 
     }
 
     public void fillTeamNames(){ //genera los nombres de cada equipo. Lo hace poniendo los integrantes separados por guiones
         String teamName = "";
-        for(int i = 0; i < GameData.TEAM_AMOUNT; ++i){
-            teamName = GameData.PLAYERS.get(2*i);
+        for(int i = 0; i < com.example.papelitosgamma.Auxiliar.GameData.TEAM_AMOUNT; ++i){
+            teamName = com.example.papelitosgamma.Auxiliar.GameData.PLAYERS.get(2*i);
             teamName += " - ";
-            teamName += GameData.PLAYERS.get(2*i + 1);
-            GameData.TEAMS.add(teamName);
+            teamName += com.example.papelitosgamma.Auxiliar.GameData.PLAYERS.get(2*i + 1);
+            com.example.papelitosgamma.Auxiliar.GameData.TEAMS.add(teamName);
         }
-        if(GameData.PLAYER_AMOUNT % 2 == 1){
+        if(com.example.papelitosgamma.Auxiliar.GameData.PLAYER_AMOUNT % 2 == 1){
             teamName += " - ";
-            teamName += GameData.PLAYERS.get(GameData.PLAYER_AMOUNT - 1);
-            GameData.TEAMS.set(GameData.TEAM_AMOUNT - 1, teamName);
+            teamName += com.example.papelitosgamma.Auxiliar.GameData.PLAYERS.get(com.example.papelitosgamma.Auxiliar.GameData.PLAYER_AMOUNT - 1);
+            com.example.papelitosgamma.Auxiliar.GameData.TEAMS.set(com.example.papelitosgamma.Auxiliar.GameData.TEAM_AMOUNT - 1, teamName);
         }
     }
 
