@@ -13,6 +13,8 @@ public class GameData { //Datos y estructuras estatic o constantes de la partida
 
     public static final int PLAYER_AMOUNT = 9;
 
+    public static final int WORD_AMOUNT = PLAYER_AMOUNT*WORDS_PER_PLAYER;
+
     public static ArrayList<String> PLAYERS = new ArrayList<>(Arrays.asList("Alberto", "Carlos", "Dorado", "María", "Miguel", "Miriam", "Paty", "Sergio", "Victor"));
 
     public static ArrayList<String> TEAMS = new ArrayList<>(TEAM_AMOUNT);
