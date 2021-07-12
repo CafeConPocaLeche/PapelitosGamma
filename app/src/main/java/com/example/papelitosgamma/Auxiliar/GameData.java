@@ -1,4 +1,4 @@
-package com.example.papelazos.Auxiliar;
+package com.example.papelitosgamma.Auxiliar;
 
 import java.util.ArrayList;
 import java.util.Arrays;

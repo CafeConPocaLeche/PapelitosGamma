@@ -1,4 +1,4 @@
-package com.example.papelazos.Activities;
+package com.example.papelitosgamma.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,8 +18,8 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import com.example.papelazos.Auxiliar.GameData;
-import com.example.papelazos.R;
+import com.example.papelitosgamma.Auxiliar.GameData;
+import com.example.papelitosgamma.R;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
