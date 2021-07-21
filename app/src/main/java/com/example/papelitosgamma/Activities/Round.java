@@ -14,11 +14,11 @@ import com.example.papelitosgamma.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.Random;
 
 public class Round extends AppCompatActivity {
 
+    private String currentPlayer;
     private ArrayList<String> wordsLeft;
     private int index, timer = 30;
     private boolean first = true, round=true;
@@ -47,9 +47,8 @@ public class Round extends AppCompatActivity {
                         countDown.setText("");
                         int winner = Collections.max(GameData.SCORES);
                         StartRound.roundNumber++;
-                        //startButton.setText("Ronda " + StartRound.roundNumber);
                         startButton.setText("Ronda "+ StartRound.roundNumber);
-                        textCurrentWord.setText("");
+                        textCurrentWord.setText("Equipo " + winner);
                         round = false;
                     }else{
                         Intent intent = new Intent(v.getContext(),StartRound.class);
@@ -63,7 +62,7 @@ public class Round extends AppCompatActivity {
                         textCurrentWord.setText(wordsLeft.get(index));
                         startTime();
                     }else{
-                        wordsGuessed(v);
+                        wordsGuessed();
                         textCurrentWord.setText(wordsLeft.get(index));
                     }
                 }
@@ -79,7 +78,7 @@ public class Round extends AppCompatActivity {
     }
 
     void update(){
-        String currentPlayer = GameData.GAME_MANAGER.currentPlayer();
+        currentPlayer = GameData.GAME_MANAGER.currentPlayer();
         textCurrentPlayer.setText(currentPlayer);
         index = nextIndex();
     }
@@ -88,7 +87,7 @@ public class Round extends AppCompatActivity {
         return random.nextInt(wordsLeft.size());
     }
 
-    void wordsGuessed(View v){
+    void wordsGuessed(){
         wordsLeft.remove(index);
         GameData.GAME_MANAGER.increaseScore();
         index = nextIndex();

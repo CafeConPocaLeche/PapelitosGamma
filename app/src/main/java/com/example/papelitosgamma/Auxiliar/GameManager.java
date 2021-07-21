@@ -7,7 +7,6 @@ public class GameManager {
     private ArrayList<Team> teams = GameData.TEAMS;
 
     private int team_turn = 0;
-    private int team_counter = 0;
     private int round = 1;
 
    public String currentPlayer(){
@@ -20,10 +19,8 @@ public class GameManager {
     }
 
     public void increaseScore(){
-       team_counter=team_counter%4;
-       int currentScore = GameData.SCORES.get(team_counter);
-       GameData.SCORES.set(team_counter, currentScore + 1);
-       team_counter++;
+       int currentScore = GameData.SCORES.get(team_turn);
+       GameData.SCORES.set(team_turn, currentScore + 1);
     }
 
     public void nextRound(){
