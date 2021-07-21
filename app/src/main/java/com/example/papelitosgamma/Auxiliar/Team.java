@@ -29,6 +29,8 @@ public class Team {
     }
 
     public String getCurrentPlayer(){
-        return players.get(turn);
+        String name = players.get(turn);
+        nextTurn();
+        return name;
     }
 }

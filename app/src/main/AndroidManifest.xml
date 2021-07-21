@@ -8,8 +8,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PapelitosGamma">
-        <activity android:name=".Activities.Round"></activity>
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".Scores"></activity>
+        <activity android:name=".Activities.Round" />
         <activity android:name=".Activities.StartRound" />
         <activity android:name=".Activities.RegisterWords" />
         <activity android:name=".Activities.TeamsView" />

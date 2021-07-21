@@ -2,73 +2,118 @@ package com.example.papelitosgamma.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.papelitosgamma.Auxiliar.GameData;
 import com.example.papelitosgamma.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.Random;
 
 public class Round extends AppCompatActivity {
 
     private ArrayList<String> wordsLeft;
-    private int index;
+    private int index, timer = 30;
+    private boolean first = true, round=true;
     private Random random;
-    private String currentPlayer;
+    private TextView textCurrentPlayer, textCurrentWord, countDown;
+    private Button startButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_round);
 
+        textCurrentPlayer = findViewById(R.id.currentPlayer);
+        textCurrentWord = findViewById(R.id.currentWord);
+        startButton = findViewById(R.id.nextWordButtom);
+        countDown = findViewById(R.id.countDownRound);
+
         initialize();
+
+        startButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if(wordsLeft.size()==1){
+                    if(round){
+                        countDown.setText("");
+                        int winner = Collections.max(GameData.SCORES);
+                        StartRound.roundNumber++;
+                        //startButton.setText("Ronda " + StartRound.roundNumber);
+                        startButton.setText("Ronda "+ StartRound.roundNumber);
+                        textCurrentWord.setText("");
+                        round = false;
+                    }else{
+                        Intent intent = new Intent(v.getContext(),StartRound.class);
+                        startActivity(intent);
+                    }
+
+                }else{
+                    if(first){
+                        first = false;
+                        startButton.setText("SIGUIENTE");
+                        textCurrentWord.setText(wordsLeft.get(index));
+                        startTime();
+                    }else{
+                        wordsGuessed(v);
+                        textCurrentWord.setText(wordsLeft.get(index));
+                    }
+                }
+
+            }
+        });
+    }
+
+    void initialize(){
+        wordsLeft = (ArrayList<String>) GameData.WORDS.clone();
+        random = new Random();
+        update();
+    }
+
+    void update(){
+        String currentPlayer = GameData.GAME_MANAGER.currentPlayer();
+        textCurrentPlayer.setText(currentPlayer);
+        index = nextIndex();
     }
 
     int nextIndex(){
         return random.nextInt(wordsLeft.size());
     }
 
-    void update(){
-        currentPlayer = GameData.GAME_MANAGER.currentPlayer();
-        index = nextIndex();
-        //mostrar a quien le toca ahora por pantalla
-    }
-
-    void initialize(){
-        wordsLeft = (ArrayList<String>) GameData.WORDS.clone();
-        random = new Random();
-        //inicializar el tiempo
-        for(int i = 0; i < GameData.TEAM_AMOUNT; ++i)GameData.SCORES.add(0);
-        update();
-    }
-
-    void wordGuessed(){
+    void wordsGuessed(View v){
         wordsLeft.remove(index);
         GameData.GAME_MANAGER.increaseScore();
-        if(wordsLeft.size() == 0){
-            GameData.GAME_MANAGER.nextRound();
-            // parar tiempo
-            // mostrar puntuaciones
-            // pasar a la pantalla de la siguiente ronda o terminar la partida
-            //sacar boton de siguiente ronda
-        }
-       else  index = nextIndex();
+        index = nextIndex();
+
     }
 
-   void timeOver(){
-        //resetear reloj
-        GameData.GAME_MANAGER.nextTurn();
-        update();
-        //cambiar el boton
-   }
+    void startTime(){
+        new CountDownTimer(31000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                countDown.setText(String.valueOf(timer));
+                timer--;
+            }
+            @Override
+            public void onFinish() {
+                first = true;
+                textCurrentWord.setText("SIGUIENTE JUGADOR");
+                startButton.setText("COMENZAR");
+                countDown.setText("30");
+                timer=30;
+                GameData.GAME_MANAGER.nextTurn();
+                update();
+            }
 
-   void startTime(){
-        //cambiar el boton
-        //ocultar las puntuaciones
-        //enseñar la palabra
-       //poner en marcha el crono
-   }
-
+        }.start();
+    }
 
 }

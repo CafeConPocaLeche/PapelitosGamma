@@ -1,5 +1,7 @@
 package com.example.papelitosgamma.Auxiliar;
 
+import android.util.Pair;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -17,7 +19,9 @@ public class GameData { //Datos y estructuras estatic o constantes de la partida
 
     public static final int WORD_AMOUNT = PLAYER_AMOUNT*WORDS_PER_PLAYER;
 
-    public static ArrayList<String> PLAYERS = new ArrayList<>(Arrays.asList("Alberto", "Carlos", "Dorado", "María", "Miguel", "Miriam", "Paty", "Sergio", "Victor"));
+    //public static ArrayList<Pair<String,Integer>> PLAYERSPOINTS = new ArrayList<>(Arrays.asList(Pair.create("Alberto",0), Pair.create("Carlos",0), Pair.create("Dorado",0), Pair.create("Maria",0), Pair.create("Miguel",0), Pair.create("Miri",0), Pair.create("Paty",0), Pair.create("Sergio",0), Pair.create("Victor",0)));
+
+    public static ArrayList<String> PLAYERS = new ArrayList<>(Arrays.asList("Alberto","Carlos","Dorado","Maria","Miguel","Miri","Paty","Sergio","Victor"));
 
     public static ArrayList<Team> TEAMS = new ArrayList<Team>(TEAM_AMOUNT);
 
@@ -27,11 +31,12 @@ public class GameData { //Datos y estructuras estatic o constantes de la partida
 
     public static boolean ATAJO = true;
 
-    public static ArrayList<String> WORDS_ATAJO = new ArrayList<>(Arrays.asList("pergamino", "botafumeiro","contraproducente", "basilisco", "cloaca", "tendinitis", "Hertfelder", "tenedor", "locutorio"));
+    public static ArrayList<String> WORDS_ATAJO = new ArrayList<>(Arrays.asList("uno","dos","tres","cuatro","cinco"));
 
     public static GameManager GAME_MANAGER = new GameManager();
 
-    public static ArrayList<Integer> SCORES = new ArrayList<>(TEAM_AMOUNT);
+    public static ArrayList<Integer> SCORES = new ArrayList<>(Arrays.asList(0,0,0,0));
+
 
     public static int ROUND_AMOUNT = 3;
 }
