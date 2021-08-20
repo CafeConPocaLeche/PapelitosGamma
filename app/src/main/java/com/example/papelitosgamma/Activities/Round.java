@@ -45,7 +45,7 @@ public class Round extends AppCompatActivity {
                 if(wordsLeft.size()==1){
                     if(round){
                         countDown.setText("");
-                        int winner = Collections.max(GameData.SCORES);
+                        int winner = getIndexOfLargest()+1;
                         StartRound.roundNumber++;
                         startButton.setText("Ronda "+ StartRound.roundNumber);
                         textCurrentWord.setText("Equipo " + winner);
@@ -54,7 +54,6 @@ public class Round extends AppCompatActivity {
                         Intent intent = new Intent(v.getContext(),StartRound.class);
                         startActivity(intent);
                     }
-
                 }else{
                     if(first){
                         first = false;
@@ -66,10 +65,25 @@ public class Round extends AppCompatActivity {
                         textCurrentWord.setText(wordsLeft.get(index));
                     }
                 }
-
             }
         });
     }
+
+    public int getIndexOfLargest()
+    {
+        if ( GameData.SCORES == null || GameData.SCORES.size() == 0 ) return -1; // null or empty
+
+        int largest = 0;
+        for ( int i = 1; i < GameData.SCORES.size(); i++ )
+        {
+            if ( GameData.SCORES.get(i) > GameData.SCORES.get(largest) ){
+                largest = i;
+            }
+        }
+        return largest; // position of the first largest found
+    }
+
+
 
     void initialize(){
         wordsLeft = (ArrayList<String>) GameData.WORDS.clone();
