@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.papelitosgamma.Auxiliar.GameData;
+import com.example.papelitosgamma.Auxiliar.GameManager;
 import com.example.papelitosgamma.R;
 
 import java.util.ArrayList;
@@ -68,22 +69,6 @@ public class Round extends AppCompatActivity {
             }
         });
     }
-
-    public int getIndexOfLargest()
-    {
-        if ( GameData.SCORES == null || GameData.SCORES.size() == 0 ) return -1; // null or empty
-
-        int largest = 0;
-        for ( int i = 1; i < GameData.SCORES.size(); i++ )
-        {
-            if ( GameData.SCORES.get(i) > GameData.SCORES.get(largest) ){
-                largest = i;
-            }
-        }
-        return largest; // position of the first largest found
-    }
-
-
 
     void initialize(){
         wordsLeft = (ArrayList<String>) GameData.WORDS.clone();

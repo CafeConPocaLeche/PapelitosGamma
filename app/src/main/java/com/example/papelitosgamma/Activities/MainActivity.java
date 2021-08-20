@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -24,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("HOLa");
 
         start_button = findViewById(R.id.start_btn);
+
+        System.out.println("Buenas noches");
+        Log.d("testeo logcat","Buenas tardes");
     }
 
 

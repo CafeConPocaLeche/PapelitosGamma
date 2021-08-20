@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PapelitosGamma</string>
+    <string name="nuevaPalabra_hint">Nueva palabra</string>
+    <string name="registerbtn_text">REGISTER</string>
 </resources>

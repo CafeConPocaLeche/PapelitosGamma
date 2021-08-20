@@ -37,6 +37,5 @@ public class GameData { //Datos y estructuras estatic o constantes de la partida
 
     public static ArrayList<Integer> SCORES = new ArrayList<>(Arrays.asList(0,0,0,0));
 
-
     public static int ROUND_AMOUNT = 3;
 }
