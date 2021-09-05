@@ -7,21 +7,25 @@ import java.util.Arrays;
 
 public class GameData { //Datos y estructuras estatic o constantes de la partida
 
-    public static final int TIME = 30 ;
+    public static final int INITIAL_TIME = 10;
+
+    public static int TIME_LEFT = INITIAL_TIME;
 
     public static final int WORDS_PER_PLAYER = 1;
 
-    public static final int TEAM_AMOUNT = 4;
+    public static int TEAM_AMOUNT;
 
-    public static final int PLAYER_AMOUNT = 9;
+    public static int PLAYER_AMOUNT;
 
     public static final String TEAM_SEPARATOR = " - ";
 
-    public static final int WORD_AMOUNT = PLAYER_AMOUNT*WORDS_PER_PLAYER;
+    public static int WORD_AMOUNT;
 
     //public static ArrayList<Pair<String,Integer>> PLAYERSPOINTS = new ArrayList<>(Arrays.asList(Pair.create("Alberto",0), Pair.create("Carlos",0), Pair.create("Dorado",0), Pair.create("Maria",0), Pair.create("Miguel",0), Pair.create("Miri",0), Pair.create("Paty",0), Pair.create("Sergio",0), Pair.create("Victor",0)));
 
-    public static ArrayList<String> PLAYERS = new ArrayList<>(Arrays.asList("Alberto","Carlos","Dorado","Maria","Miguel","Miri","Paty","Sergio","Victor"));
+    //public static ArrayList<String> PLAYERS = new ArrayList<>(Arrays.asList("Alberto","Carlos","Dorado","Maria","Miguel","Miri","Paty","Sergio","Victor"));
+
+    public static ArrayList<String> PLAYERS = new ArrayList<>();
 
     public static ArrayList<Team> TEAMS = new ArrayList<Team>(TEAM_AMOUNT);
 
@@ -29,13 +33,14 @@ public class GameData { //Datos y estructuras estatic o constantes de la partida
 
     public static ArrayList<String> WORDS = new ArrayList<>(PLAYER_AMOUNT * WORDS_PER_PLAYER);
 
-    public static boolean ATAJO = true;
+    public static GameManager GAME_MANAGER;
 
-    public static ArrayList<String> WORDS_ATAJO = new ArrayList<>(Arrays.asList("uno","dos","tres","cuatro","cinco"));
+    public static ArrayList<Integer> SCORES = new ArrayList<>();
 
-    public static GameManager GAME_MANAGER = new GameManager();
-
-    public static ArrayList<Integer> SCORES = new ArrayList<>(Arrays.asList(0,0,0,0));
+    public static int CURRENT_ROUND = 1;
 
     public static int ROUND_AMOUNT = 3;
+
+    public static ArrayList<String> ROUND_TITLES = new ArrayList<>(Arrays.asList("DEFINE","UNA PALABRA","MIMICA"));
+
 }

@@ -20,17 +20,12 @@ public class Team {
         players.add(playername);
     }
 
-    public void nextTurn(){
-        turn = (turn + 1) % size();
-    }
+    public void nextTurn(){ turn = (turn + 1) % size(); }
 
     public ArrayList<String> getPlayers(){
         return players;
     }
 
-    public String getCurrentPlayer(){
-        String name = players.get(turn);
-        nextTurn();
-        return name;
+    public String getCurrentPlayer(){ return players.get(turn);
     }
 }

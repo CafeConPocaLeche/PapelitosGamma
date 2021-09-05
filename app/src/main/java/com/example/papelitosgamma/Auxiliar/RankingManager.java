@@ -7,38 +7,54 @@ import java.util.Iterator;
 
 public class RankingManager {
 
-    public static ArrayList<Integer> ISC = new ArrayList<>(Arrays.asList(0,1,2,3));
-    public static ArrayList<Integer> SSC = new ArrayList<>(Arrays.asList(0,1,2,3));
+    public static ArrayList<Integer> ANT = new ArrayList<>();
+    public static ArrayList<Integer> POST = new ArrayList<>();
+    public static int FIRST = 0;
 
+    public RankingManager(int teamount){
+        ANT.add(teamount - 1);
+        for(int i = 0; i < teamount - 1; ++i){
+            ANT.add(i);
+            POST.add(i + 1);
+        }
+        POST.add(0);
+    }
 
-    public static void updateRanking(ArrayList<Integer> SC, int ct){
-        int rankActual = SSC.get(ct);
+    public static void updateRanking(ArrayList<Integer> SC, int act){
         boolean keep_going = true;
 
-        while(rankActual > 0 && keep_going){
-            --rankActual;
-            int indexPrev = ISC.get(rankActual);
+        while(keep_going){
+          if(SC.get(act) > SC.get(ANT.get(act))){
+              int prev = ANT.get(act);
+              if(prev == FIRST){
+                  FIRST = act;
+                  keep_going = false;
+              }
+              //Festival de intercambio de los seis punteros afectados
+              int next = POST.get(act);
+              int prevprev = ANT.get(prev);
 
-            if(SC.get(ct)>SC.get(indexPrev)){
-
-                Collections.swap(SSC, SSC.get(ct),SSC.get(indexPrev));
-                Collections.swap(ISC, ISC.get(rankActual),ISC.get(rankActual + 1));
-            }
-            else keep_going = false;
+              POST.set(act, prev);
+              ANT.set(act, prevprev);
+              POST.set(prev, next);
+              ANT.set(prev, act);
+              POST.set(prevprev, act);
+              ANT.set(next, prev);
+          }
+          else keep_going = false;
         }
     }
 
-    public static void showRanking(){
+    public static ArrayList<String> buildRanking(){  //cambiar por fillRanking
+        ArrayList<String> ranking = new ArrayList<String>();
+        int i = FIRST;
 
-        for(int i = 0; i < ISC.size(); ++i) {
-            int nextTeam = ISC.get(i);
-            System.out.println("Puesto  " + i);
-            System.out.println("Equipo  " + nextTeam);
-            System.out.println("Puntuacion  " + GameData.SCORES.get(nextTeam));
-        }
+      do{ ranking.add("Equipo " + (i + 1) + " --- " + GameData.SCORES.get(i) + " puntos");
+          i = POST.get(i);
+      }while(i != FIRST);
 
-        System.out.println("\n");
+        return ranking;
     }
-}
 
 }
+

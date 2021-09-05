@@ -3,6 +3,7 @@ package com.example.papelitosgamma.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -12,20 +13,19 @@ import android.widget.TextView;
 import com.example.papelitosgamma.Auxiliar.GameData;
 import com.example.papelitosgamma.Auxiliar.GameManager;
 import com.example.papelitosgamma.R;
+import com.example.papelitosgamma.Scores;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 public class Round extends AppCompatActivity {
 
-    private String currentPlayer;
     private ArrayList<String> wordsLeft;
-    private int index, timer = 30;
-    private boolean first = true, round=true;
+    private int index;
     private Random random;
     private TextView textCurrentPlayer, textCurrentWord, countDown;
     private Button startButton;
+    private CountDownTimer crono;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,81 +37,102 @@ public class Round extends AppCompatActivity {
         startButton = findViewById(R.id.nextWordButtom);
         countDown = findViewById(R.id.countDownRound);
 
-        initialize();
 
-        startButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if(wordsLeft.size()==1){
-                    if(round){
-                        countDown.setText("");
-                        int winner = getIndexOfLargest()+1;
-                        StartRound.roundNumber++;
-                        startButton.setText("Ronda "+ StartRound.roundNumber);
-                        textCurrentWord.setText("Equipo " + winner);
-                        round = false;
-                    }else{
-                        Intent intent = new Intent(v.getContext(),StartRound.class);
-                        startActivity(intent);
-                    }
-                }else{
-                    if(first){
-                        first = false;
-                        startButton.setText("SIGUIENTE");
-                        textCurrentWord.setText(wordsLeft.get(index));
-                        startTime();
-                    }else{
-                        wordsGuessed();
-                        textCurrentWord.setText(wordsLeft.get(index));
-                    }
-                }
-            }
-        });
-    }
-
-    void initialize(){
         wordsLeft = (ArrayList<String>) GameData.WORDS.clone();
         random = new Random();
-        update();
-    }
-
-    void update(){
-        currentPlayer = GameData.GAME_MANAGER.currentPlayer();
-        textCurrentPlayer.setText(currentPlayer);
-        index = nextIndex();
-    }
-
-    int nextIndex(){
-        return random.nextInt(wordsLeft.size());
-    }
-
-    void wordsGuessed(){
-        wordsLeft.remove(index);
-        GameData.GAME_MANAGER.increaseScore();
-        index = nextIndex();
+        textCurrentPlayer.setText(GameManager.currentPlayer());
+        countDown.setText(String.valueOf(GameData.TIME_LEFT));
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startButton.setOnClickListener(null);
+                playTurn();
+            }
+        });
+        setCrono(GameData.TIME_LEFT);
 
     }
 
-    void startTime(){
-        new CountDownTimer(31000, 1000) {
+
+    void playTurn(){
+        new CountDownTimer(4000, 1000){
+
             @Override
             public void onTick(long millisUntilFinished) {
-                countDown.setText(String.valueOf(timer));
-                timer--;
+                textCurrentWord.setText(String.valueOf(millisUntilFinished/1000));
+            }
+
+            @Override
+            public void onFinish() {
+                index = nextIndex();
+                textCurrentWord.setText(wordsLeft.get(index));
+                startButton.setText("ADIVINADA");
+                startButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        wordGuessed();
+                    }
+                });
+                crono.start();
+            }
+        }.start();
+
+
+    }
+
+    void wordGuessed(){
+        GameManager.increaseScore();
+        if(wordsLeft.size() > 1) {
+            wordsLeft.remove(index);
+            index = nextIndex();
+            textCurrentWord.setText(wordsLeft.get(index));
+        }
+        else{
+            GameData.TIME_LEFT = Integer.valueOf(countDown.getText().toString());
+            crono.cancel();
+            textCurrentWord.setText("");
+            GameData.GAME_MANAGER.updateRanking();
+            showScores();
+            GameManager.nextRound();
+        }
+
+    }
+
+
+    void setCrono(int seconds){
+        crono = new CountDownTimer((seconds+ 1)*1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                countDown.setText(String.valueOf(millisUntilFinished/1000));
             }
             @Override
             public void onFinish() {
-                first = true;
-                textCurrentWord.setText("SIGUIENTE JUGADOR");
+
+                textCurrentWord.setText("");
+                GameData.TIME_LEFT = GameData.INITIAL_TIME;
+                GameManager.nextTurn();
                 startButton.setText("COMENZAR");
-                countDown.setText("30");
-                timer=30;
-                GameData.GAME_MANAGER.nextTurn();
-                update();
+                textCurrentPlayer.setText(GameManager.currentPlayer());
+                countDown.setText(String.valueOf(GameData.TIME_LEFT));
+                setCrono(GameData.TIME_LEFT);
+                startButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startButton.setOnClickListener(null);
+                        playTurn();
+                    }
+                });
             }
 
-        }.start();
+        };
+
+
+    }
+
+    int nextIndex(){ return random.nextInt(wordsLeft.size()); }
+
+    void showScores(){
+        Intent intent = new Intent(this, Scores.class);
+        startActivity(intent);
     }
 
 }

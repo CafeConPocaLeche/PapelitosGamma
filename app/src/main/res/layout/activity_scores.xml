@@ -7,15 +7,39 @@
     android:background="@drawable/fondopapel"
     tools:context=".Scores">
 
-    <TextView
-        android:id="@+id/Winner"
-        android:layout_width="177dp"
-        android:layout_height="93dp"
-        android:gravity="center"
-        android:text="Ganador"
-        android:textSize="34sp"
+    <ListView
+        android:id="@+id/rankingListView"
+        android:layout_width="271dp"
+        android:layout_height="589dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.028" />
+
+    <Button
+        android:id="@+id/MATAME_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="MATAME"
+        android:text="MATAME"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.978"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rankingListView"
+        app:layout_constraintVertical_bias="0.933" />
+
+    <Button
+        android:id="@+id/nextRound_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
+        android:layout_marginBottom="44dp"
+        android:onClick="startNextRound"
+        android:text="SIGUIENTE RONDA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rankingListView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

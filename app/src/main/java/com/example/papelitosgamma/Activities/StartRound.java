@@ -18,32 +18,26 @@ import com.example.papelitosgamma.Scores;
 
 public class StartRound extends AppCompatActivity {
 
-    public static int roundNumber = 1;
     private String roundName;
     private TextView mTV, mTVC;
-    public int counter = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_round);
 
-        if(roundNumber==4){
-            Intent intent = new Intent(this, Scores.class);
-            startActivity(intent);
-        }
-
         mTV = findViewById(R.id.roundName);
-        roundName = "Ronda " + roundNumber;
+        roundName = "Ronda " + GameData.CURRENT_ROUND;
         mTV.setText(roundName);
 
         mTVC = findViewById(R.id.countDown);
-        new CountDownTimer(4000, 1000) {
+
+        mTVC.setText(GameData.ROUND_TITLES.get(GameData.CURRENT_ROUND - 1));
+        new CountDownTimer(3000, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                mTVC.setText(String.valueOf(counter));
-                counter--;
+               // mTVC.setText(String.valueOf(counter));
             }
 
             @Override
@@ -55,7 +49,6 @@ public class StartRound extends AppCompatActivity {
     }
 
    void gameStart(){
-        counter = 3;
         Intent intent = new Intent(this, Round.class);
         startActivity(intent);
     }
